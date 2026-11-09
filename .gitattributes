@@ -1,0 +1,2 @@
+*.wpilog filter=lfs diff=lfs merge=lfs -text
+*.hoot filter=lfs diff=lfs merge=lfs -text
