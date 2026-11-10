@@ -28,7 +28,7 @@ Status values: **Not started**, **In progress**, **Done**, **Blocked**. Update t
   - `docs/copilot-credits.md`
 - **Done when:**
   - Coach/school has approved the policy.
-  - The ruleset is active on `main`: PR + 1 approval, CI required, no force push, Code Owners (rulesets enabled in phases per the setup guide). Copilot automatic review stays off (D-013).
+  - The ruleset is active on `main`: PR + 1 approval, no force push, and Code Owners. Required CI checks are added after Piece 4, per the setup guide. Copilot automatic review stays off (D-013).
   - A test PR shows the template.
 
 ### 2. Constitution + FRC spec templates
