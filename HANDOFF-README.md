@@ -24,7 +24,7 @@ This bundle moves the framework planning work (done in Perplexity Computer, Octo
 Follow `docs/framework/setup-guide.md` Part 5. In short:
 1. Create the robot project and the `Team-663/2027` repo (setup guide Parts 3–4).
 2. On a `framework-handoff` branch, run `specify init --here --force --integration copilot` and `specify extension add bug` **first** (Spec Kit v1.4.0 installs skills under `.github/skills/speckit-*`; run them as `/speckit-specify`, with a hyphen).
-3. Copy the bundle contents into the **repo root**, keeping the folder structure. Merge rather than overwrite if a file already exists, and check `git diff --stat` so no Spec Kit files are removed.
+3. Copy the bundle contents into the **repo root**, keeping the folder structure. This hand-off includes `.github/copilot-instructions.md`, `.github/instructions/framework-docs.instructions.md`, `.github/prompts/build-piece.prompt.md`, and `.github/prompts/framework-status.prompt.md`. Merge rather than overwrite if a file already exists, and check `git diff --stat` so no Spec Kit files are removed.
 4. Make sure Copilot reads instructions: in VS Code settings, confirm **Chat: Use AGENTS.md File** is on (default), and that `.github/prompts` and `.github/skills` are enabled.
 5. Commit on a branch (e.g., `framework-handoff`) and open a PR so mentors review it.
 
