@@ -138,7 +138,7 @@ Install them from the **WPILib sidebar → Vendor Dependencies** list, or run **
 |---|---|---|---|
 | CTRE Phoenix 6 | 26.70.0-alpha-2 | VS Code list ("CTRE-Phoenix (v6)"), or `https://raw.githubusercontent.com/wpilibsuite/vendor-json-repo/main/2027_alpha7/Phoenix6-26.70.0-alpha-2.json` | Choose the normal entry, not Phoenix Replay. Phoenix 5 isn't available. |
 | REVLib | 2027.0.0-alpha-9 | `https://software-metadata.revrobotics.com/REVLib-2027.json` | Newer than the compatibility table and fixes read timeouts ([REV notes](https://github.com/wpilibsuite/SystemcoreTesting/blob/main/REV.md)) |
-| AdvantageKit | 27.0.0-alpha-7 | `https://github.com/Mechanical-Advantage/AdvantageKit/releases/download/v27.0.0-alpha-7/AdvantageKit.json` | Copy the `build.gradle` changes from the 2027 skeleton template ([AdvantageKit notes](https://github.com/wpilibsuite/SystemcoreTesting/blob/main/AdvantageKit.md)) |
+| AdvantageKit | 27.0.0-alpha-7 | `https://github.com/Mechanical-Advantage/AdvantageKit/releases/download/v27.0.0-alpha-7/AdvantageKit.json` | Follow the 2027 skeleton for both `build.gradle` and runtime setup: use `LoggedRobot`, record build metadata, configure data receivers and replay, and call `Logger.start()`. Add a `WPILOGWriter` in SIM mode for smoke test 5 ([AdvantageKit notes](https://github.com/wpilibsuite/SystemcoreTesting/blob/main/AdvantageKit.md)). |
 | PathPlannerLib | 2027.0.0-alpha-4.1 | `https://3015rangerrobotics.github.io/pathplannerlib/PathplannerLibSystemCoreAlpha.json` | Commands v2 ([notes](https://github.com/wpilibsuite/SystemcoreTesting/blob/main/PathPlannerLib.md)) |
 
 **Install only if the robot uses them**
