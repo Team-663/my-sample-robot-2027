@@ -1,7 +1,7 @@
 {
   "integration": "copilot",
   "version": "1.3.2",
-  "installed_at": "2026-11-09T01:21:45.349433+00:00",
+  "installed_at": "2026-11-10T22:32:30.918203+00:00",
   "files": {
     ".github/skills/speckit-analyze/SKILL.md": "0d477ddf85d16ccc041c565c2650751b2659df8f642809bb90a658a9e82556e6",
     ".github/skills/speckit-clarify/SKILL.md": "e210163cf5e971b235e1ef85adc491d95b643ca52970e2ea0c780f26553f9947",
