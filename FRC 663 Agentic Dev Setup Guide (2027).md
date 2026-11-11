@@ -230,6 +230,7 @@ This is the hosted [frc-mcp](https://github.com/fikretyukselit/frc-mcp) server. 
 Add this to `.vscode/settings.json` so Copilot always asks before deploy-type commands, and never runs them automatically:
 ```json
 {
+  "chat.tools.terminal.enableAutoApprove": false,
   "chat.tools.terminal.autoApprove": {
     "/deploy/i": false,
     "/git push --force/": false,
