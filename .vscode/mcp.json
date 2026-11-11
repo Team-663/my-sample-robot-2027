@@ -1,0 +1,1 @@
+{ "servers": { "frc": { "type": "http", "url": "https://mrkaynak.com/frc/mcp" } } }
