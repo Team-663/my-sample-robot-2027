@@ -374,10 +374,10 @@ Target dates are adjusted for November 10.
 
 | # | Piece | Output | Target |
 |---|---|---|---|
-| 1 | **AI policy + governance** | `docs/ai-policy.md`, CODEOWNERS, PR template with AI checkbox, ruleset phase 2, `docs/copilot-credits.md` with the review policy | Nov 14 |
+| 1 | **AI policy + governance** | `docs/ai-policy.md`, CODEOWNERS, PR template with AI checkbox, ruleset phases 1–2 (Code Owner review; CI status check deferred to Piece 4), `docs/copilot-credits.md` with the review policy | Nov 14 |
 | 2 | **Constitution + FRC spec templates** | `/speckit-constitution` run, `docs/architecture.md`, FRC spec template, `robot-io.md` format (with CANPort), `docs/debugging.md` | Nov 21 |
 | 3 | **Copilot instructions + guardrails** | Full `AGENTS.md` (2027 pitfalls), path instructions, hooks (deny deploy, NT writes, force-push; compile after edit), terminal approval rules | Nov 21 |
-| 4 | **CI pipeline** | `build.yml` (build, transition tests, sim scenarios, replay regression with LFS, determinism check), `copilot-setup-steps.yml` | Nov 26 |
+| 4 | **CI pipeline** | `build.yml` (build, transition tests, sim scenarios, replay regression with LFS, determinism check), `copilot-setup-steps.yml`, required `build` status check enabled in the main ruleset (ruleset phase 3) | Nov 26 |
 | 5 | **Copilot code review setup** | `review.instructions.md`, default effort set to Lite, the manual-request process, 3 test PRs with the credits each used | Dec 3 |
 | 6 | **Verification and debugging loop** | Sim scenario format, replay and `replayWatch` workflow, log tool chosen (D-012), fixture format, Spec Kit `bug` extension wired to fixtures, SysId-to-sim process | Dec 10 |
 | 7 | **Skills + custom agents** | `frc-*` skills and read-only agents | Dec 17 |

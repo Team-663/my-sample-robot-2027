@@ -107,8 +107,24 @@ git config --global user.email "you@example.com"
 | FIRST Driver Station | 2027 Alpha 7 or newer | Linked from [SystemcoreTesting](https://github.com/wpilibsuite/SystemcoreTesting) | Drive laptop |
 | Elastic (optional) | 2027 alpha | [Elastic releases](https://github.com/Gold872/elastic-dashboard/releases). Now also runs in a browser. | Drive team |
 
-### 2.6 Spec Kit (mentors and software leads)
-Spec Kit needs Python 3.11 or newer, which `uv` handles.
+### 2.6 Python runtime (every programmer)
+The checked-in Spec Kit skills run Python scripts directly; for example, `/speckit-specify` invokes `python3`. Every programmer must install Python 3.11 or newer and confirm that the exact `python3` command works in the terminal inside WPILib VS Code. This is separate from the Spec Kit CLI, which students do not need.
+
+| OS | Install Python 3.11+ |
+|---|---|
+| Windows 11 | Install the [Python install manager](https://www.python.org/downloads/) with `winget install 9NQ7512CXL7T -e`, then install a runtime with `py install 3.11`. When prompted, add the global aliases directory (default `%LocalAppData%\Python\bin`) to `PATH`, then open a new terminal. |
+| macOS | `brew install python` |
+| Ubuntu | `sudo apt install python3` |
+
+Verify in a new terminal:
+```sh
+python3 --version
+```
+It must report Python 3.11 or newer. On Windows, if `python3` is not recognized, add `%LocalAppData%\Python\bin` to your user `PATH`, reopen the terminal, and retry. Do not proceed until this exact command works; the skills invoke `python3` directly. See the [official Windows Python setup guide](https://docs.python.org/3/using/windows.html) for Python install manager details.
+
+### 2.7 Spec Kit CLI (mentors and software leads; optional for students)
+The CLI is for initializing/updating Spec Kit, not for running the checked-in Copilot skills. Students need Python from Part 2.6 but do not need `uv` or the `specify` CLI.
+
 ```sh
 # Windows (PowerShell)
 powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
@@ -256,9 +272,11 @@ Turn rules on in phases so the repo stays usable before CI exists.
 | Phase | When | Rules on `main` |
 |---|---|---|
 | 1 | Now | Require a PR with 1 approval, block force pushes, block deletion |
-| 2 | After Piece 1 (CODEOWNERS exists, `mentors` team created) | Add **Require review from Code Owners** |
-| 3 | After Piece 4 (CI exists) | Add **Require status checks**: the `build` job |
+| 2 | During Piece 1, once `.github/CODEOWNERS` exists and the `mentors` team has been created | Add **Require review from Code Owners**; this is required before Piece 1 can be marked Done |
+| 3 | During Piece 4, once the `build` workflow is passing | Add **Require status checks**: the `build` job; this is required before Piece 4 can be marked Done |
 | — | Never | "Automatically request Copilot code review" stays **off** (D-013) |
+
+Piece dependencies in the tracker are completion gates: start a dependent piece only after its listed prerequisites are Done. Ruleset phases are separate operational milestones within those pieces. Piece 1 does not wait for CI; the required `build` status check is deferred to Piece 4, and Piece 4 cannot be marked Done until that check is enabled and verified.
 
 **Phase 1 from the command line** (repo admin):
 ```sh
@@ -312,16 +330,18 @@ In the web UI, the same settings are under **Settings → Rules → Rulesets →
 | 2 | Ask: "Use frc_migrate to check whether this project has any 2026 patterns." | A clean report, or a short list of fixes |
 | 3 | Type `/speckit-` in chat | Spec Kit skills show up (constitution, specify, plan, tasks, implement, converge, bug-*) |
 | 4 | Ask Copilot to run `./gradlew deploy` | It stops and asks you. Click **Skip**. (Piece 3 turns this into a hard block.) |
-| 5 | Simulate the project, open the log in AdvantageScope, run replay | `ReplayOutputs` matches `RealOutputs` |
+| 5 | **Deferred until robot-side AdvantageKit is configured:** simulate, open the generated log in AdvantageScope, and run replay | The robot initializes AdvantageKit logging, a replay source is configured, and `ReplayOutputs` matches `RealOutputs` |
 | 6 | Open a tiny PR and request a **Lite** Copilot review | Copilot comments, follows `copilot-instructions.md`, and the session shows credits used |
-| 7 | (With Systemcore) Deploy by hand with the robot on blocks, then pull the log with AdvantageScope Lite | The log opens and includes the git hash. Event name and match number may be missing on AdvantageKit alpha-7, which is expected. |
+| 7 | **Deferred until robot-side logging and metadata are configured, and Systemcore is available:** with the robot on blocks, a human deploys by hand and pulls the log with AdvantageScope Lite | The log opens and includes the git hash. Event name and match number may be missing on AdvantageKit alpha-7, which is expected. |
+
+Tests 5 and 7 are not pass criteria for the initial project/setup smoke test. Installing the AdvantageKit vendordep and Gradle integration alone does not configure robot startup, logger initialization, replay inputs, or git-hash metadata. Run test 5 only after the pilot robot code has those logging/replay pieces; run test 7 only after git-hash metadata is also included and hardware is available. Until then, leave both deferred rather than reporting them as passed.
 
 ---
 
 ## Part 9: Each Student's First Day
 
 1. Confirm Copilot Student is active at github.com/settings/copilot.
-2. Complete Part 2, sections 2.1–2.5 (Spec Kit CLI not needed).
+2. Complete Part 2, sections 2.1–2.6, including the Python runtime and `python3 --version` check. The Spec Kit CLI in section 2.7 is not needed for students.
 3. Clone the repo:
    ```sh
    gh repo clone Team-663/2027
