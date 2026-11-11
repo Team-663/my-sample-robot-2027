@@ -164,6 +164,8 @@ Build and simulate again after adding the vendordeps.
 
 Your account can create repos in Team-663 and will be admin of the new one. Public matches past years (D-007); swap in `--private` if you'd rather wait.
 
+Run this and the remaining `sh` blocks in Bash (Git Bash, installed with Git for Windows, on Windows), not PowerShell.
+
 ```sh
 cd 2027
 git init -b main
