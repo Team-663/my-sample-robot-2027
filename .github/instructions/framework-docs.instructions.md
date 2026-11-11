@@ -1,9 +1,7 @@
 ---
 name: Framework documentation rules
 description: Use when editing docs/framework/** or docs/research/**; preserve the framework's decisions, build-piece tracking, citations, and hand-off accuracy.
-applyTo:
-  - "docs/framework/**"
-  - "docs/research/**"
+applyTo: "docs/framework/**,docs/research/**"
 ---
 
 # Framework and research documentation

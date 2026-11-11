@@ -68,6 +68,7 @@ Download the installer for your machine from the [Alpha 8 release](https://githu
 
 **Linux**
 ```sh
+# For Linux x64; on Arm64, replace x64 with Arm64 in both paths.
 tar -xf WPILib_Linux-x64-2027.0.0-alpha-8.tar.gz
 cd WPILib_Linux-x64-2027.0.0-alpha-8/
 ./WPILibInstaller
@@ -163,6 +164,8 @@ Build and simulate again after adding the vendordeps.
 
 Your account can create repos in Team-663 and will be admin of the new one. Public matches past years (D-007); swap in `--private` if you'd rather wait.
 
+Run this and the remaining `sh` blocks in Bash (Git Bash, installed with Git for Windows, on Windows), not PowerShell.
+
 ```sh
 cd 2027
 git init -b main
@@ -230,6 +233,7 @@ This is the hosted [frc-mcp](https://github.com/fikretyukselit/frc-mcp) server. 
 Add this to `.vscode/settings.json` so Copilot always asks before deploy-type commands, and never runs them automatically:
 ```json
 {
+  "chat.tools.terminal.enableAutoApprove": false,
   "chat.tools.terminal.autoApprove": {
     "/deploy/i": false,
     "/git push --force/": false,
