@@ -68,6 +68,7 @@ Download the installer for your machine from the [Alpha 8 release](https://githu
 
 **Linux**
 ```sh
+# For Linux x64; on Arm64, replace x64 with Arm64 in both paths.
 tar -xf WPILib_Linux-x64-2027.0.0-alpha-8.tar.gz
 cd WPILib_Linux-x64-2027.0.0-alpha-8/
 ./WPILibInstaller
