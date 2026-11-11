@@ -28,7 +28,7 @@ Status values: **Not started**, **In progress**, **Done**, **Blocked**. Update t
   - `docs/copilot-credits.md`
 - **Done when:**
   - Coach/school has approved the policy.
-  - The Phase 1 ruleset is active on `main` (PR + 1 approval, no force push, and no deletion), and Phase 2 Code Owner review is enabled after the CODEOWNERS file and `mentors` team exist. CI status checks are explicitly deferred to Piece 4. Copilot automatic review stays off (D-013).
+  - Phase 1 ruleset protections are active on `main` (PR + 1 approval, no force push, and no deletion). Phase 2 Code Owner review is enabled once the CODEOWNERS file and `mentors` team exist, before Piece 1 is marked Done. Required CI checks are deferred to Piece 4, per the setup guide. Copilot automatic review stays off (D-013).
   - A test PR shows the template.
 
 ### 2. Constitution + FRC spec templates
