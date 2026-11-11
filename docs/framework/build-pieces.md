@@ -28,7 +28,7 @@ Status values: **Not started**, **In progress**, **Done**, **Blocked**. Update t
   - `docs/copilot-credits.md`
 - **Done when:**
   - Coach/school has approved the policy.
-  - The ruleset is active on `main`: PR + 1 approval, CI required, no force push, Code Owners (rulesets enabled in phases per the setup guide). Copilot automatic review stays off (D-013).
+  - The Phase 1 ruleset is active on `main` (PR + 1 approval, no force push, and no deletion), and Phase 2 Code Owner review is enabled after the CODEOWNERS file and `mentors` team exist. CI status checks are explicitly deferred to Piece 4. Copilot automatic review stays off (D-013).
   - A test PR shows the template.
 
 ### 2. Constitution + FRC spec templates
@@ -63,6 +63,7 @@ Status values: **Not started**, **In progress**, **Done**, **Blocked**. Update t
   - CI is green on an empty project.
   - A deliberately broken transition test fails CI.
   - The replay determinism check passes.
+  - The `build` status check is required by the `main` ruleset (setup guide Part 6, Phase 3).
 
 ### 5. Copilot code review setup
 - **Outputs:**
