@@ -6,15 +6,13 @@ package first.robot.commands;
 
 import org.wpilib.command2.Command;
 import org.wpilib.command2.Commands;
-import first.robot.subsystems.ExampleSubsystem;
 
+/** Autonomous routines. Each auto gets its own spec after Kickoff. */
 public final class Autos {
-  /** Example static factory for an autonomous command. */
-  public static Command exampleAuto(ExampleSubsystem subsystem) {
-    return Commands.sequence(subsystem.exampleMethodCommand(), new ExampleCommand(subsystem));
-  }
+  private Autos() {}
 
-  private Autos() {
-    throw new UnsupportedOperationException("This is a utility class!");
+  /** Placeholder auto that does nothing. */
+  public static Command none() {
+    return Commands.none().withName("Autos.none");
   }
 }

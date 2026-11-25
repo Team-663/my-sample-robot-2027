@@ -4,16 +4,33 @@
 
 package first.robot;
 
+import org.wpilib.framework.RobotBase;
+
 /**
- * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
- * constants. This class should not be used for any other purpose. All constants should be declared
- * globally (i.e. public static). Do not put anything functional in this class.
- *
- * <p>It is advised to statically import this class (or one of its inner classes) wherever the
- * constants are needed, to reduce verbosity.
+ * Robot-wide constants. Mechanism constants live with their subsystem. CAN ports are recorded in
+ * {@code docs/robot-io.md}.
  */
 public final class Constants {
-  public static class OperatorConstants {
+  private Constants() {}
+
+  /** How the code is running. */
+  public enum Mode {
+    /** On a real robot. */
+    REAL,
+    /** Physics simulation on a laptop. */
+    SIM,
+    /** Replaying a log file (AdvantageKit). */
+    REPLAY
+  }
+
+  /** Mode to use when not on a real robot. Change to REPLAY to replay a log. */
+  public static final Mode SIM_MODE = Mode.SIM;
+
+  public static final Mode CURRENT_MODE = RobotBase.isReal() ? Mode.REAL : SIM_MODE;
+
+  public static final class OperatorConstants {
+    private OperatorConstants() {}
+
     public static final int DRIVER_CONTROLLER_PORT = 0;
   }
 }
