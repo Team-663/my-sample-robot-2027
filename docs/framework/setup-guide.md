@@ -2,7 +2,7 @@
 
 Team 663 Power Sharks · Checked November 10, 2026 · Companion to the [FRC Agentic Development Framework (2027 Season)](agentic-dev-framework.md)
 
-This guide goes from nothing installed to a working `Team-663/2027` repo with Copilot, Spec Kit, frc-mcp, and AdvantageKit, ready for Build Piece 1. Do the parts in order. Everything is still alpha software, so re-check versions against [SystemcoreTesting](https://github.com/wpilibsuite/SystemcoreTesting) before every install day.
+This guide goes from nothing installed to a working `Team-663/2027` repo with Copilot, Spec Kit, frc-mcp, and AdvantageKit, ready for Phase 0 spec work ([phase plan](phase-plan.md)). Do the parts in order. Everything is still alpha software, so re-check versions against [SystemcoreTesting](https://github.com/wpilibsuite/SystemcoreTesting) before every install day.
 
 | Part | Who | Time |
 |---|---|---|
@@ -35,7 +35,7 @@ This guide goes from nothing installed to a working `Team-663/2027` repo with Co
 **Start student verification today.** Individual sign-ups were paused this spring and reopened gradually ([GitHub changelog](https://github.blog/changelog/2026-06-17-copilot-individual-plan-sign-ups-are-reopening/)). Some students still report activation trouble, so give yourself time to fix problems before onboarding.
 
 ### 1.3 AI use policy
-Write a one-page draft of the policy (Build Piece 1 finalizes it) and get sign-off from the coach and the school. It should include FIRST attribution, "students explain before merge," and the rule that agents never deploy.
+Write a one-page draft of the policy (the current draft is `docs/ai-policy.md`) and get sign-off from the coach and the school. It should include FIRST attribution, "students explain before merge," and the rule that agents never deploy.
 
 ---
 
@@ -220,6 +220,8 @@ git add -A && git commit -m "Add Spec Kit bug extension"
 ```
 
 ### 5.3 Unpack the hand-off bundle
+*Historical step, already done for this repo. The hand-off README and context now live in `docs/framework/archive/`.*
+
 Unzip **FRC Copilot Hand-off Bundle** and copy the *contents* of `frc-copilot-handoff/` into the repo root:
 - `AGENTS.md`, `HANDOFF-README.md`
 - `.github/copilot-instructions.md`, `.github/instructions/`, `.github/prompts/`
@@ -242,18 +244,18 @@ Create `.vscode/mcp.json`:
 ```
 This is the hosted [frc-mcp](https://github.com/fikretyukselit/frc-mcp) server. Teams that want offline use can install it locally with brew or scoop and point to it instead.
 
-### 5.5 Interim terminal safety (until Piece 3 hooks)
-Add this to `.vscode/settings.json` so Copilot always asks before deploy-type commands, and never runs them automatically:
+### 5.5 Interim terminal safety (until Phase 1 hooks)
+This is already in the repo's `.vscode/settings.json` (Phase 0). It makes Copilot always ask before deploy-type commands and never run them automatically:
 ```json
 {
   "chat.tools.terminal.autoApprove": {
     "/deploy/i": false,
-    "/git push --force/": false,
+    "/git push.*(--force|-f\\b)/": false,
     "/nt4|networktables/i": false
   }
 }
 ```
-These rules only govern auto-approval. The real block comes from the `preToolUse` hooks in Build Piece 3 ([VS Code hooks](https://code.visualstudio.com/docs/agent-customization/hooks)). Until then, every terminal command needs a human click, and nobody approves a deploy from chat.
+These rules only govern auto-approval. The real block comes from the `preToolUse` hooks added in Phase 1 ([VS Code hooks](https://code.visualstudio.com/docs/agent-customization/hooks)). Until then, every terminal command needs a human click, and nobody approves a deploy from chat.
 
 ### 5.6 Push and open the PR
 ```sh
@@ -272,11 +274,11 @@ Turn rules on in phases so the repo stays usable before CI exists.
 | Phase | When | Rules on `main` |
 |---|---|---|
 | 1 | Now | Require a PR with 1 approval, block force pushes, block deletion |
-| 2 | During Piece 1, once `.github/CODEOWNERS` exists and the `mentors` team has been created | Add **Require review from Code Owners**; this is required before Piece 1 can be marked Done |
-| 3 | During Piece 4, once the `build` workflow is passing | Add **Require status checks**: the `build` job; this is required before Piece 4 can be marked Done |
+| 2 | Once `.github/CODEOWNERS` is on `main` and the `mentors` team has been created (phase plan step 0.8) | Add **Require review from Code Owners** |
+| 3 | Phase 0 (step 0.6), once `.github/workflows/build.yml` has passed on a PR | Add **Require status checks**: the `build` job |
 | — | Never | "Automatically request Copilot code review" stays **off** (D-013) |
 
-Piece dependencies in the tracker are completion gates: start a dependent piece only after its listed prerequisites are Done. Ruleset phases are separate operational milestones within those pieces. Piece 1 does not wait for CI; the required `build` status check is deferred to Piece 4, and Piece 4 cannot be marked Done until that check is enabled and verified.
+Ruleset phases are independent of the [phase plan](phase-plan.md); turn each one on as soon as its condition is met.
 
 **Phase 1 from the command line** (repo admin):
 ```sh
@@ -329,12 +331,12 @@ In the web UI, the same settings are under **Settings → Rules → Rulesets →
 | 1 | In Copilot Chat (Agent mode), ask: "Use the frc MCP to confirm this project's WPILib version and list our vendordeps." | It reports 2027, `org.wpilib`, and `command2`. If you see `edu.wpi.first`, grounding isn't working. |
 | 2 | Ask: "Use frc_migrate to check whether this project has any 2026 patterns." | A clean report, or a short list of fixes |
 | 3 | Type `/speckit-` in chat | Spec Kit skills show up (constitution, specify, plan, tasks, implement, converge, bug-*) |
-| 4 | Ask Copilot to run `./gradlew deploy` | It stops and asks you. Click **Skip**. (Piece 3 turns this into a hard block.) |
-| 5 | **Deferred until robot-side AdvantageKit is configured:** simulate, open the generated log in AdvantageScope, and run replay | The robot initializes AdvantageKit logging, a replay source is configured, and `ReplayOutputs` matches `RealOutputs` |
+| 4 | Ask Copilot to run `./gradlew deploy` | It stops and asks you. Click **Skip**. (Phase 1 hooks turn this into a hard block.) |
+| 5 | **Not yet verified** (robot-side AdvantageKit was configured in Phase 0; nobody has run this check yet): simulate, open the generated log in AdvantageScope, and run replay | The robot initializes AdvantageKit logging, a replay source is configured, and `ReplayOutputs` matches `RealOutputs` |
 | 6 | Open a tiny PR and request a **Lite** Copilot review | Copilot comments, follows `copilot-instructions.md`, and the session shows credits used |
 | 7 | **Deferred until robot-side logging and metadata are configured, and Systemcore is available:** with the robot on blocks, a human deploys by hand and pulls the log with AdvantageScope Lite | The log opens and includes the git hash. Event name and match number may be missing on AdvantageKit alpha-7, which is expected. |
 
-Tests 5 and 7 are not pass criteria for the initial project/setup smoke test. Installing the AdvantageKit vendordep and Gradle integration alone does not configure robot startup, logger initialization, replay inputs, or git-hash metadata. Run test 5 only after the pilot robot code has those logging/replay pieces; run test 7 only after git-hash metadata is also included and hardware is available. Until then, leave both deferred rather than reporting them as passed.
+Tests 5 and 7 are not pass criteria for the initial project/setup smoke test. As of Phase 0, `Robot.java` extends `LoggedRobot` and initializes logging and replay; git-hash metadata is still Phase 1. Run test 7 only after git-hash metadata is also included and hardware is available. Until then, leave both deferred rather than reporting them as passed.
 
 ---
 
@@ -350,12 +352,12 @@ Tests 5 and 7 are not pass criteria for the initial project/setup smoke test. In
 4. Open the folder in the 2027 WPILib VS Code. When prompted, trust the workspace and start the `frc` MCP server.
 5. Run **Build** and **Simulate**.
 6. Run smoke test 1.
-7. Read `AGENTS.md` and Section 8 of the framework (credit habits).
+7. Read `AGENTS.md`, the [phase plan](phase-plan.md), and Section 8 of the framework (credit habits).
 
 ---
 
 ## Safety Notes
-- Agents never deploy and never write NetworkTables values. Until the Piece 3 hooks exist, a human reads every terminal command before approving it.
+- Agents never deploy and never write NetworkTables values. Until the Phase 1 hooks exist, a human reads every terminal command before approving it.
 - The first enable on Systemcore happens with the robot on blocks, a hand on disable, and a spoken "enabling" call-out.
 - Do firmware updates on the bench, and re-check settings afterward.
 - Keep the Systemcore recovery drive with the robot cart.

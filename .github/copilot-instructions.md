@@ -1,19 +1,21 @@
 # Copilot Instructions
 
-Use this file as the Copilot-specific guide for work in this repository. The framework design and decisions live in `docs/framework/`; consult the relevant spec and decision log before changing robot architecture or framework policy.
+Follow the root `AGENTS.md` for all robot-code rules (2027 APIs, architecture, tests, safety). This file adds Copilot-specific guidance.
 
-## Working on the framework
-- Treat `docs/framework/agentic-dev-framework.md` as the framework source of truth, `docs/framework/decisions.md` as the decision log, and `docs/framework/build-pieces.md` as the status tracker.
-- Work on one numbered Build Piece at a time. Follow its outputs and done-criteria in the tracker and framework. Keep changes scoped; do not generate later pieces preemptively.
-- Use the `/framework-status` prompt to summarize current progress and `/build-piece` to start a numbered piece. Review the current diff and update the tracker when a piece's status changes.
-- Cite or link existing research in `docs/research/` when adding factual claims. Mark uncertain or time-sensitive facts for re-verification.
+## Current phase
+- We are in **Phase 0: writing specs and code.** The plan and the next steps are in `docs/framework/phase-plan.md`. Do not build Phase 1 tooling (hooks, sim/replay CI, `frc-*` skills, custom agents) unless the user asks for that specific item.
+- For new robot behavior, use the Spec Kit skills in order: `/speckit-specify`, `/speckit-plan`, `/speckit-tasks`, `/speckit-implement`. Follow `.specify/memory/constitution.md`.
+- Use `src/main/java/first/robot/subsystems/exampleroller/` and `specs/000-example-roller/spec.md` as the pattern for new subsystems and specs.
 
-## Robot-code and safety rules
-- Follow the root `AGENTS.md` for project-wide robot-code rules, including 2027 APIs, architecture, tests, and safety.
+## Working credit-smart
+- One Spec Kit task per agent session. Read only the files the task names; do not search the whole repo or read the full framework document.
+- Let `./gradlew build` (and CI) find compile and test errors before reasoning about them.
+- If a spec is vague, ask the user rather than guessing behavior, limits, or CAN ports.
+
+## Safety
 - Never deploy to the robot, write NetworkTables values on a live robot, or run actions that can move hardware. Do not run Gradle deploy tasks.
-- Never commit secrets. Do not weaken safety or approval rules as part of a framework change.
-- When adding robot code that uses WPILib or vendor APIs, verify it against the repository's pinned 2027 season and build/test it as appropriate.
+- Never commit secrets. Do not weaken safety rules, tests, or approval requirements.
 
 ## Review expectations
-- Explain the purpose and scope of changes, identify any assumptions, and report verification performed.
-- Do not claim a Build Piece is complete unless its documented done-criteria are met; distinguish completed work from follow-up decisions or external approvals.
+- Explain the purpose and scope of changes, identify assumptions, and report the checks actually run (with results).
+- Do not claim a phase step is complete unless its "done" condition in the phase plan is met; distinguish completed work from approvals that are still outstanding.
