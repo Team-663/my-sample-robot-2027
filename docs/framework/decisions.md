@@ -29,7 +29,7 @@ Status values: **Accepted**, **Open**, **Superseded**.
   2. CTRE, REV, AdvantageKit, and vision libraries work with v3 on our pinned WPILib.
   3. The v3 pilot needed no more agent rework than v2, and students read it as easily.
   4. Copilot's v3 code passes frc-mcp verification without repeated fixes.
-- **Evidence source:** Build Piece 8 pilot.
+- **Evidence source:** ~~Build Piece 8 pilot.~~ Pilot dropped by D-016; decide on criteria 1–2 at Kickoff.
 - **Status check 2026-11-10:** PathPlanner PR #1183 (v3, Java only) is open and active but untested; maintainers discussing separate v2/v3 vendordeps. Criterion 1 not met. https://github.com/mjansen4857/pathplanner/pull/1183
 
 ## D-004: AdvantageKit logging and replay from day one
@@ -59,6 +59,28 @@ Status values: **Accepted**, **Open**, **Superseded**.
 ## D-006: Agents never move hardware
 - **Status:** Accepted, 2026-10-27
 - **Decision:** No agent deploys code, writes NetworkTables values, or runs anything that moves the robot. Enforced with hooks and terminal approval rules, not only instructions.
+- **Phase 0 note (2026-11-25):** Until hooks land in Phase 1, enforcement is terminal auto-approve deny rules in `.vscode/settings.json` plus a human approving every agent terminal command.
+
+## D-016: Phase 0 simplification, Build Pieces replaced by phases
+- **Status:** Accepted, 2026-11-25. Supersedes the Build Piece sequence in Framework Section 11 and `archive/build-pieces.md`.
+- **Decision:** Do only what is needed to start writing specs and code (Phase 0 in [`phase-plan.md`](phase-plan.md)): constitution, FRC spec template, one reference subsystem with transition tests, terminal safety settings, and a minimal `./gradlew build` CI check. Everything else moves to Phase 1 with an explicit trigger, or is dropped (the Commands v3 throwaway-branch pilot and the watch list).
+- **Also decided:**
+  - Keep the WPILib 2027 template package `first.robot` instead of renaming to `frc.robot`. Transition tests live next to their subsystem's package under `src/test/java/first/robot/subsystems/<name>/`, so `State` can stay non-public.
+  - FRC spec fields live in the Spec Kit project override `.specify/templates/overrides/spec-template.md`, so Spec Kit upgrades don't overwrite them.
+  - D-003 is decided at Kickoff on criteria 1–2 only; criteria 3–4 (pilot evidence) are waived.
+- **Why:** On 2026-11-24 no Build Piece was formally done, the Nov 21 targets had passed, and about 6.5 weeks remained before Kickoff. The constitution was still the blank template and the code did not match AGENTS.md, which blocked spec work more than any missing tooling.
+- **Revisit if:** a Phase 1 trigger fires; pull that item forward as its own PR.
+
+## D-017: OpenCode not adopted as the team harness
+- **Status:** Accepted, 2026-11-25
+- **Decision:** Stay on GitHub Copilot in WPILib VS Code for the team (D-005). Mentors may try OpenCode individually; our `AGENTS.md`, `SKILL.md` folders, specs, and MCP config stay portable.
+- **Why:**
+  - Switching would not unblock Phase 0; every remaining blocker is tool-independent.
+  - It adds a terminal tool outside the IDE students are already learning, plus a second Spec Kit integration and config set.
+  - With a Copilot login it draws from the same credit pool. GitHub officially supports Copilot Pro, Pro+, Business, and Enterprise in OpenCode; Copilot Student support is not officially documented. Free or bring-your-own models raise age, data-use, and AI-policy questions.
+  - Its real advantages (config-enforced permissions, model choice) matter more for mentors than for the team.
+- **Revisit if:** students regularly run out of Copilot credits, or Copilot hooks stay in Preview and prove unreliable.
+- **Sources:** https://github.blog/changelog/2026-01-16-github-copilot-now-supports-opencode/ , https://opencode.ai/docs/skills , https://github.github.io/spec-kit/reference/integrations.html
 
 ---
 
@@ -72,4 +94,4 @@ Status values: **Accepted**, **Open**, **Superseded**.
 | D-010 | Systemcore hardware before Kickoff? | **Recommended: buy one when sales open Nov 18, 2026** ($550, 4 GB, one per team). Image 17+, keep a USB recovery drive. |
 | D-011 | Keep-out rule ownership | Who in mechanical signs off on superstructure keep-outs |
 | D-015 | `LoggedOpModeRobot` vs. `LoggedRobot` | AdvantageKit alpha-7 added `LoggedOpModeRobot`; decide at Kickoff with D-003 |
-| D-012 | Log tool for agents | wpilog-mcp (MCP, native to Copilot) or ClaudeScope CLI + skills; decide in Piece 6 |
+| D-012 | Log tool for agents | wpilog-mcp (MCP, native to Copilot) or ClaudeScope CLI + skills; decide when its Phase 1 trigger fires (first agent-assisted log investigation) |

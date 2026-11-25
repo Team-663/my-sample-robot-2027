@@ -82,14 +82,14 @@ The following is the proposed protection baseline for the repository's default b
 | Force pushes | Block force pushes (non-fast-forward updates). | Active. |
 | Branch deletion | Block deletion of the protected branch. | Active. |
 | Code-owner approval | Require an approval from a code owner. | Proposed for Phase 2, after `.github/CODEOWNERS` is on the default branch and the `@Team-663/mentors` team exists and has repository access. Not currently enabled. |
-| CI status check | Require the `build` status check. | Deferred to Phase 3 / Build Piece 4; enable only after the workflow is passing and the check name is confirmed. Not currently configured. |
+| CI status check | Require the `build` status check. | Ruleset Phase 3 (phase plan step 0.6); enable only after `.github/workflows/build.yml` has passed on a PR and the check name is confirmed. Not currently configured. |
 | Automatic Copilot review | Keep automatic review off; mentors may request review manually under D-013. | Policy decision; verify separately in repository settings. |
 
 ### Current GitHub snapshot
 
 Read-only check of `Team-663/my-sample-robot-2027` on November 11, 2026 found one active ruleset named `Protect main`. In addition to the items above, it currently permits merge, squash, and rebase; does not require review-thread resolution or approval of the last push; and contains a branch-creation restriction and an extra-approval rule for unattributed changes. Confirm whether those additional rules are intentional before changing the ruleset. Copilot automatic-review configuration is separate from the branch ruleset and was not verified as part of this snapshot.
 
-Recheck and update this table after changing GitHub settings. The implementation sequence is in [the setup guide](framework/setup-guide.md#part-6-rulesets-and-code-review-settings); status-check enforcement is deferred until Build Piece 4 as recorded in [the tracker](framework/build-pieces.md#4-ci-pipeline).
+Recheck and update this table after changing GitHub settings. The implementation sequence is in [the setup guide](framework/setup-guide.md#part-6-rulesets-and-code-review-settings); status-check enforcement is phase plan step 0.6 in [the phase plan](framework/phase-plan.md).
 
 ## 9. Reporting and enforcement
 

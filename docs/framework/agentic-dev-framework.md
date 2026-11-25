@@ -2,6 +2,8 @@
 
 Team 663 Power Sharks · Version 3 · Updated November 10, 2026
 
+> **November 25, 2026: Phase 0 simplification ([D-016](decisions.md#d-016-phase-0-simplification-build-pieces-replaced-by-phases)).** The Build Piece sequence in Section 11 is replaced by [`phase-plan.md`](phase-plan.md). This document is now background design. Sections 4 (architecture), 9 (debugging), and 12 (guardrails) still apply. The target layout in Section 5 is the eventual goal, not the current state; the code package is `first.robot`, not `frc.robot`. OpenCode was evaluated and not adopted ([D-017](decisions.md#d-017-opencode-not-adopted-as-the-team-harness)).
+
 This is the design for our agentic tools for writing, testing, and managing robot code. We use **GitHub, VS Code, and GitHub Copilot**, and we follow spec-driven development. Each Build Piece in Section 11 gets built in its own follow-up session.
 
 Setup instructions are in a separate document: **[FRC 663 Agentic Dev Setup Guide (2027)](setup-guide.md)**.
@@ -369,6 +371,8 @@ accounts and Copilot → laptop installs → WPILib project and vendordeps → `
 ---
 
 ## 11. Build Pieces (Follow-up Sessions)
+
+> **Superseded by [`phase-plan.md`](phase-plan.md) (D-016).** Kept for history; the table below is not the current plan.
 
 Target dates are adjusted for November 10.
 
