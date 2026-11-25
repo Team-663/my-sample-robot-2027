@@ -1,0 +1,7 @@
+# Team mentors review core agent guidance and architecture.
+# Confirm the GitHub organization/team slug is @Team-663/mentors before merging.
+
+/AGENTS.md              @Team-663/mentors
+/.github/               @Team-663/mentors
+/.specify/              @Team-663/mentors
+/docs/architecture.md   @Team-663/mentors
