@@ -68,7 +68,7 @@ AI-assisted changes follow the same spec-driven process and quality gates as oth
 5. Obtain human review and approval under the repository rules. A Copilot or other AI review is advisory only. A mentor reviews safety-critical changes, including changes to mechanisms, superstructure, keep-out rules, limits, or hardware behavior.
 6. Students explain the change to a mentor before merge. Humans—not agents—decide whether the evidence is sufficient and whether code may be deployed.
 
-Copilot automatic code review stays off. A mentor may request a review on a ready, CI-green pull request; use Lite by default and Balanced only for the safety-critical areas identified in the framework. Record review credits in `docs/copilot-credits.md` when that tracking document is available. See [decision D-013](framework/decisions.md#d-013-copilot-code-review-is-mentor-requested-lite-by-default).
+Copilot automatic code review stays off. A mentor may request a review on a ready, CI-green pull request; use Lite by default and Balanced only for the safety-critical areas identified in the framework. Record every requested review and its credit usage in `docs/copilot-credits.md`. See [decision D-013](framework/decisions.md#d-013-copilot-code-review-is-mentor-requested-lite-by-default).
 
 ## 8. GitHub repository protections (proposed)
 
