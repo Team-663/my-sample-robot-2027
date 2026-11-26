@@ -2,7 +2,9 @@
 
 Team 663 Power Sharks · Checked November 10, 2026 · Companion to the [FRC Agentic Development Framework (2027 Season)](agentic-dev-framework.md)
 
-This guide goes from nothing installed to a working `Team-663/2027` repo with Copilot, Spec Kit, frc-mcp, and AdvantageKit, ready for Phase 0 spec work ([phase plan](phase-plan.md)). Do the parts in order. Everything is still alpha software, so re-check versions against [SystemcoreTesting](https://github.com/wpilibsuite/SystemcoreTesting) before every install day.
+This guide goes from nothing installed to a working `Team-663/2027` repo with Copilot, Spec Kit, frc-mcp, and AdvantageKit, ready for Phase 0 spec work ([phase plan](phase-plan.md)). Do the parts in order.
+
+> **Joining this repo (`Team-663/my-sample-robot-2027`)?** Do only Parts 1, 2, and 9, then the [README quick start](../../README.md#quick-start-about-10-minutes-after-setup). Parts 3–6 were done once when the repo was created; they stay here as the recipe for a new season repo. Part 7 is for whoever prepares the Systemcore. Everything is still alpha software, so re-check versions against [SystemcoreTesting](https://github.com/wpilibsuite/SystemcoreTesting) before every install day.
 
 | Part | Who | Time |
 |---|---|---|
@@ -154,7 +156,7 @@ Install them from the **WPILib sidebar → Vendor Dependencies** list, or run **
 |---|---|---|---|
 | CTRE Phoenix 6 | 26.70.0-alpha-2 | VS Code list ("CTRE-Phoenix (v6)"), or `https://raw.githubusercontent.com/wpilibsuite/vendor-json-repo/main/2027_alpha7/Phoenix6-26.70.0-alpha-2.json` | Choose the normal entry, not Phoenix Replay. Phoenix 5 isn't available. |
 | REVLib | 2027.0.0-alpha-9 | `https://software-metadata.revrobotics.com/REVLib-2027.json` | Newer than the compatibility table and fixes read timeouts ([REV notes](https://github.com/wpilibsuite/SystemcoreTesting/blob/main/REV.md)) |
-| AdvantageKit | 27.0.0-alpha-7 | `https://github.com/Mechanical-Advantage/AdvantageKit/releases/download/v27.0.0-alpha-7/AdvantageKit.json` | Follow the 2027 skeleton for both `build.gradle` and runtime setup: use `LoggedRobot`, record build metadata, configure data receivers and replay, and call `Logger.start()`. Add a `WPILOGWriter` in SIM mode for smoke test 5 ([AdvantageKit notes](https://github.com/wpilibsuite/SystemcoreTesting/blob/main/AdvantageKit.md)). |
+| AdvantageKit | 27.0.0-alpha-7 | `https://github.com/Mechanical-Advantage/AdvantageKit/releases/download/v27.0.0-alpha-7/AdvantageKit.json` | Follow the 2027 skeleton for both `build.gradle` and runtime setup: use `LoggedRobot`, record build metadata, configure data receivers and replay, and call `Logger.start()`. SIM mode also adds a `WPILOGWriter`, for smoke test 5 (done in this repo; [AdvantageKit notes](https://github.com/wpilibsuite/SystemcoreTesting/blob/main/AdvantageKit.md)). |
 | PathPlannerLib | 2027.0.0-alpha-4.1 | `https://3015rangerrobotics.github.io/pathplannerlib/PathplannerLibSystemCoreAlpha.json` | Commands v2 ([notes](https://github.com/wpilibsuite/SystemcoreTesting/blob/main/PathPlannerLib.md)) |
 
 **Install only if the robot uses them**
@@ -332,7 +334,7 @@ In the web UI, the same settings are under **Settings → Rules → Rulesets →
 | 2 | Ask: "Use frc_migrate to check whether this project has any 2026 patterns." | A clean report, or a short list of fixes |
 | 3 | Type `/speckit-` in chat | Spec Kit skills show up (constitution, specify, plan, tasks, implement, converge, bug-*) |
 | 4 | Ask Copilot to run `./gradlew deploy` | It stops and asks you. Click **Skip**. (Phase 1 hooks turn this into a hard block.) |
-| 5 | **Not yet verified** (robot-side AdvantageKit was configured in Phase 0; nobody has run this check yet): simulate, open the generated log in AdvantageScope, and run replay | The robot initializes AdvantageKit logging, a replay source is configured, and `ReplayOutputs` matches `RealOutputs` |
+| 5 | **Not yet verified** (AdvantageKit logging and a SIM log file are configured; nobody has run this check yet): follow [Simulate and replay](../guides/add-a-mechanism.md#6-simulate-and-replay) | A `.wpilog` appears in `logs/`, replay writes a `_sim.wpilog`, and `ReplayOutputs` matches `RealOutputs` |
 | 6 | Open a tiny PR and request a **Lite** Copilot review | Copilot comments, follows `copilot-instructions.md`, and the session shows credits used |
 | 7 | **Deferred until robot-side logging and metadata are configured, and Systemcore is available:** with the robot on blocks, a human deploys by hand and pulls the log with AdvantageScope Lite | The log opens and includes the git hash. Event name and match number may be missing on AdvantageKit alpha-7, which is expected. |
 
@@ -346,13 +348,13 @@ Tests 5 and 7 are not pass criteria for the initial project/setup smoke test. As
 2. Complete Part 2, sections 2.1–2.6, including the Python runtime and `python3 --version` check. The Spec Kit CLI in section 2.7 is not needed for students.
 3. Clone the repo:
    ```sh
-   gh repo clone Team-663/2027
-   cd 2027 && git lfs pull
+   gh repo clone Team-663/my-sample-robot-2027
+   cd my-sample-robot-2027 && git lfs pull
    ```
 4. Open the folder in the 2027 WPILib VS Code. When prompted, trust the workspace and start the `frc` MCP server.
-5. Run **Build** and **Simulate**.
+5. Do the [README quick start](../../README.md#quick-start-about-10-minutes-after-setup): build, simulate, and watch the example roller in AdvantageScope.
 6. Run smoke test 1.
-7. Read `AGENTS.md`, the [phase plan](phase-plan.md), and Section 8 of the framework (credit habits).
+7. Read [Add a mechanism](../guides/add-a-mechanism.md) and `AGENTS.md`. Credit habits: one task per chat, start a new chat for each task, and don't ask Copilot to read the whole repo.
 
 ---
 

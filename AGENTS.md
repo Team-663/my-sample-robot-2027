@@ -11,9 +11,10 @@ Standing rules for AI agents (GitHub Copilot and others) working in this reposit
 ## Hard rules
 1. **2027 APIs only.** Packages are `org.wpilib.*`, not `edu.wpi.first.*`. Java 25. Verify unfamiliar APIs with the `frc` MCP server or by compiling (`./gradlew build`) before relying on them. If you can't verify an API, say so instead of guessing.
 2. **Commands v2 only** (`org.wpilib.command2`). Do not import Commands v3 (`command3`) unless `docs/framework/decisions.md` says we've switched.
-3. **Architecture.** Copy the shape of the reference subsystem in `src/main/java/first/robot/subsystems/exampleroller/` (spec: `specs/000-example-roller/spec.md`).
+3. **Architecture.** Copy the shape of the reference subsystem in `src/main/java/first/robot/subsystems/exampleroller/` (spec: `specs/000-example-roller/spec.md`). File list and steps: `docs/guides/add-a-mechanism.md`.
    - Each subsystem has a public `Goal` enum and a non-public `State` enum. `periodic()` reads inputs, computes State from Goal + logged inputs with a **pure `nextState` function**, applies **safe defaults first**, then sets outputs.
-   - A single **superstructure** owns robot-level state, legal transitions, and keep-out rules.
+   - Current- or sensor-based fault checks are **debounced** with a small pure counter function (see `countOverCurrentLoops`), never a raw threshold.
+   - A single **superstructure** owns robot-level state, legal transitions, and keep-out rules. It doesn't exist yet; it's added when a second mechanism has a keep-out.
    - **Commands only set goals.** One command factory class per subsystem in `first.robot.commands`. Commands never drive motors directly (SysId routines are the only exception).
    - Subsystem logic and IO classes never import command classes.
    - All hardware reads go through AdvantageKit `@AutoLog` IO inputs (real / sim / replay implementations). The robot class is `LoggedRobot`.
@@ -50,7 +51,10 @@ Standing rules for AI agents (GitHub Copilot and others) working in this reposit
 - **Mark AI-assisted work.** PRs with AI-generated code must tick the AI-assistance box in the PR template (FIRST attribution policy).
 
 ## Key docs
+- Start page: `README.md`
 - Phase plan (what to do now): `docs/framework/phase-plan.md`
+- How to add a mechanism: `docs/guides/add-a-mechanism.md`
+- How to change the harness: `docs/framework/harness-guide.md`
 - Constitution: `.specify/memory/constitution.md`
 - Decisions: `docs/framework/decisions.md`
 - IO map: `docs/robot-io.md`

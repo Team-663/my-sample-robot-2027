@@ -1,7 +1,7 @@
 ---
 name: Framework documentation rules
-description: Use when editing docs/framework/** or docs/research/**; preserve the framework's decisions, phase tracking, citations, and accuracy.
-applyTo: "docs/framework/**,docs/research/**"
+description: Use when editing README.md, docs/guides/**, docs/glossary.md, docs/framework/**, or docs/research/**; preserve the framework's decisions, phase tracking, citations, and accuracy.
+applyTo: "README.md,docs/guides/**,docs/glossary.md,docs/framework/**,docs/research/**"
 ---
 
 # Framework and research documentation
@@ -13,3 +13,4 @@ applyTo: "docs/framework/**,docs/research/**"
 - Preserve the distinction between accepted decisions and open decisions. Do not invent approvals, test results, or hardware availability.
 - Keep setup steps scoped, reproducible, and safe. Never recommend deploying to or writing to a live robot.
 - Use relative Markdown links for repository documents where useful, and check that referenced files exist before adding links.
+- Write for readers new to FRC code: define a term the first time (or link `docs/glossary.md`), and give exact commands and file paths. If a step adds or moves a harness file, update the table in `docs/framework/harness-guide.md`.

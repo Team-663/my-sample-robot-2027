@@ -4,6 +4,8 @@ Replaces the 10-step Build Piece sequence (archived in [`archive/build-pieces.md
 
 Kickoff is **January 9, 2027**.
 
+New here? Start with the [README](../../README.md). To build a mechanism, follow [Add a mechanism](../guides/add-a-mechanism.md). To work on a Phase 1 item, follow the [harness guide](harness-guide.md).
+
 ## Phase 0 — Ready to write specs (now)
 
 | # | Step | Status | Where |
@@ -12,7 +14,7 @@ Kickoff is **January 9, 2027**.
 | 0.2 | FRC fields in the spec template (Spec Kit override, survives upgrades) | Done | `.specify/templates/overrides/spec-template.md` |
 | 0.3 | Reference subsystem: Goal/State/IO, `LoggedRobot`, `@AutoLog`, transition tests | Done | `src/main/java/first/robot/subsystems/exampleroller/`, `specs/000-example-roller/` |
 | 0.4 | Terminal safety: never auto-approve deploy, force-push, or NT commands | Done | `.vscode/settings.json` |
-| 0.5 | CI: `./gradlew build` (compile + all tests) on every PR | Workflow added | `.github/workflows/build.yml` |
+| 0.5 | CI: `./gradlew build` (compile + all tests) on every PR | Done (first run passed on PR #8) | `.github/workflows/build.yml` |
 | 0.6 | Make `build` a required status check on `main` | **Needs a repo admin** | Setup guide Part 6, Phase 3 |
 | 0.7 | AI policy approved by coach and school (gates **student** use only) | **Needs coach/school** | `docs/ai-policy.md` |
 | 0.8 | Confirm the `@Team-663/mentors` team slug in CODEOWNERS | **Needs an org owner** | `.github/CODEOWNERS` |
@@ -22,9 +24,11 @@ Kickoff is **January 9, 2027**.
 
 ### Day-to-day workflow (Phase 0)
 
+Full walkthrough with examples: [Add a mechanism](../guides/add-a-mechanism.md). Mentors review with the [review checklist](../guides/review-checklist.md).
+
 1. Draft the Robot Behavior section by hand (goals, states, transition table, limits, failure modes). Look at `specs/000-example-roller/spec.md` first.
-2. `/speckit-specify` → mentor + mech lead review the spec PR.
-3. `/speckit-plan` → `/speckit-tasks`.
+2. `/speckit-specify` → open a **draft PR** with only the spec → mentor + mech lead review it and comment "Spec approved".
+3. On the same branch: `/speckit-plan` → `/speckit-tasks`.
 4. `/speckit-implement`, **one task per agent session**. Copy the shape of `ExampleRoller`.
 5. CI green → student explains the change to a mentor → human approves and merges.
 
@@ -32,7 +36,7 @@ Optional steps: `/speckit-clarify` when the spec has open questions, and `/speck
 
 ## Phase 1 — Add when the work needs it (build season)
 
-Pull an item forward only when a real spec or bug needs it. Each one gets its own small PR.
+Pull an item forward only when a real spec or bug needs it. Each one gets its own small PR. How to do that safely, with recipes for the common items: [harness guide](harness-guide.md#recipes).
 
 | Item | Trigger to start it | Old piece |
 |------|--------------------|-----------|
@@ -51,6 +55,14 @@ Pull an item forward only when a real spec or bug needs it. Each one gets its ow
 | `frc-*` skills and read-only custom agents | The same multi-step prompt has been typed 3+ times | 7 |
 | Student onboarding sessions | Before students start agent work | 9 |
 | Kickoff playbook | Week before Kickoff | 10 |
+
+### Done in Phase 1
+
+When an item lands, move its row here with the PR number.
+
+| Item | PR |
+|------|----|
+| — | — |
 
 ## Dropped
 
