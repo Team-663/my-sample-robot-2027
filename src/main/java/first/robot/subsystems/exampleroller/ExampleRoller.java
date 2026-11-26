@@ -37,6 +37,14 @@ public class ExampleRoller extends SubsystemBase {
 
   // Limits and outputs. A real mechanism takes these from its spec.
   static final double STALL_CURRENT_AMPS = 40.0;
+
+  /**
+   * Current must stay over the limit this many loops in a row (5 x 20 ms = 0.1 s) before we call it
+   * a stall. Every motor draws a short current spike when it starts, so an undebounced limit would
+   * trip on every button press on a real robot.
+   */
+  static final int STALL_DEBOUNCE_LOOPS = 5;
+
   static final double INTAKE_VOLTS = 8.0;
   static final double HOLD_VOLTS = 1.0;
   static final double EJECT_VOLTS = -8.0;
@@ -47,6 +55,7 @@ public class ExampleRoller extends SubsystemBase {
   private Goal goal = Goal.IDLE;
   private State state = State.IDLE;
   private String transitionReason = "startup";
+  private int overCurrentLoops = 0;
 
   public ExampleRoller(ExampleRollerIO io) {
     this.io = io;
@@ -71,10 +80,13 @@ public class ExampleRoller extends SubsystemBase {
     io.updateInputs(inputs);
     Logger.processInputs("ExampleRoller", inputs);
 
+    // Debounce counters are computed from logged inputs only, so replay gives the same answer.
+    overCurrentLoops = countOverCurrentLoops(overCurrentLoops, inputs.currentAmps);
+    boolean stallDetected = overCurrentLoops >= STALL_DEBOUNCE_LOOPS;
+
     // Enable state is logged and replayed by AdvantageKit. (2027: lives in RobotState, not
     // DriverStation.)
-    Transition next =
-        nextState(state, goal, RobotState.isEnabled(), inputs.hasPiece, inputs.currentAmps);
+    Transition next = nextState(state, goal, RobotState.isEnabled(), inputs.hasPiece, stallDetected);
     state = next.state();
     transitionReason = next.reason();
 
@@ -84,6 +96,7 @@ public class ExampleRoller extends SubsystemBase {
     Logger.recordOutput("ExampleRoller/Goal", goal);
     Logger.recordOutput("ExampleRoller/State", state);
     Logger.recordOutput("ExampleRoller/TransitionReason", transitionReason);
+    Logger.recordOutput("ExampleRoller/StallDetected", stallDetected);
     Logger.recordOutput("ExampleRoller/OutputVolts", outputVolts);
   }
 
@@ -92,15 +105,15 @@ public class ExampleRoller extends SubsystemBase {
    * Pure function: no hardware, no time, no randomness, so every row has a unit test.
    */
   static Transition nextState(
-      State current, Goal goal, boolean enabled, boolean hasPiece, double currentAmps) {
+      State current, Goal goal, boolean enabled, boolean hasPiece, boolean stallDetected) {
     if (!enabled) {
       return new Transition(State.IDLE, "robot disabled");
     }
     if (current == State.STALLED && goal != Goal.IDLE) {
       return new Transition(State.STALLED, "stalled; waiting for IDLE goal to reset");
     }
-    if (currentAmps > STALL_CURRENT_AMPS) {
-      return new Transition(State.STALLED, "current over stall limit");
+    if (stallDetected) {
+      return new Transition(State.STALLED, "current over stall limit for 0.1 s");
     }
     return switch (goal) {
       case IDLE -> new Transition(State.IDLE, "goal IDLE");
@@ -110,6 +123,14 @@ public class ExampleRoller extends SubsystemBase {
               ? new Transition(State.HOLDING, "piece detected")
               : new Transition(State.INTAKING, "goal INTAKE, no piece");
     };
+  }
+
+  /**
+   * How many loops in a row the current has been over {@link #STALL_CURRENT_AMPS}. Resets to zero
+   * as soon as the current drops back under the limit. Pure, so it has its own unit test.
+   */
+  static int countOverCurrentLoops(int previousLoops, double currentAmps) {
+    return currentAmps > STALL_CURRENT_AMPS ? previousLoops + 1 : 0;
   }
 
   /** Output for each state. Any state that is not actively moving outputs zero (safe default). */

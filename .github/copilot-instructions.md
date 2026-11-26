@@ -5,7 +5,8 @@ Follow the root `AGENTS.md` for all robot-code rules (2027 APIs, architecture, t
 ## Current phase
 - We are in **Phase 0: writing specs and code.** The plan and the next steps are in `docs/framework/phase-plan.md`. Do not build Phase 1 tooling (hooks, sim/replay CI, `frc-*` skills, custom agents) unless the user asks for that specific item.
 - For new robot behavior, use the Spec Kit skills in order: `/speckit-specify`, `/speckit-plan`, `/speckit-tasks`, `/speckit-implement`. Follow `.specify/memory/constitution.md`.
-- Use `src/main/java/first/robot/subsystems/exampleroller/` and `specs/000-example-roller/spec.md` as the pattern for new subsystems and specs.
+- Use `src/main/java/first/robot/subsystems/exampleroller/` and `specs/000-example-roller/spec.md` as the pattern for new subsystems and specs. The file list is in `docs/guides/add-a-mechanism.md`.
+- For changes to the harness itself (instructions, CI, Spec Kit, settings), follow `docs/framework/harness-guide.md`.
 
 ## Working credit-smart
 - One Spec Kit task per agent session. Read only the files the task names; do not search the whole repo or read the full framework document.

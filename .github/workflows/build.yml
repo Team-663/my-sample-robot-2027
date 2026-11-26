@@ -1,6 +1,7 @@
 # Phase 0 CI: compile + unit tests (including transition tests) on every PR.
 # Sim scenarios, replay regression, and LFS fixtures are Phase 1 (docs/framework/phase-plan.md).
 # The job name "build" is the status check to require in the main ruleset.
+# To change this file, read docs/framework/harness-guide.md ("Add or change a CI check").
 name: Build
 
 on:
@@ -11,16 +12,21 @@ on:
 permissions:
   contents: read
 
+# A new push to the same PR cancels the older, now-useless run.
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-java@v6
         with:
           distribution: temurin
           java-version: "25"
-      - uses: gradle/actions/setup-gradle@v4
+      - uses: gradle/actions/setup-gradle@v6
       - name: Build and test
         run: ./gradlew build

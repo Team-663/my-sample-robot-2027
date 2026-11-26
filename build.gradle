@@ -86,6 +86,11 @@ dependencies {
 
 test {
     useJUnitPlatform()
+    // Print the failing test name and assertion message in the console and CI log.
+    testLogging {
+        events "failed"
+        exceptionFormat "full"
+    }
     systemProperty 'junit.jupiter.extensions.autodetection.enabled', 'true'
 }
 

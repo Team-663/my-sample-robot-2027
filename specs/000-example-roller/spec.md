@@ -31,7 +31,8 @@ The operator holds a second button to run the roller outward.
 
 ### Edge Cases
 
-- Jam (current above limit) → STALLED, zero output, stays stalled until the goal returns to IDLE.
+- Jam (current above 40 A for 0.1 s) → STALLED, zero output, stays stalled until the goal returns to IDLE.
+- Motor start-up current spike (above 40 A for less than 0.1 s) → not a stall; keep running.
 - Robot disabled in any state → IDLE, zero output.
 
 ## Robot Behavior
@@ -55,7 +56,7 @@ Teaching example for the Goal/State pattern. Not on the robot.
 |---|------|-----------|----|----------------------------|
 | T1 | any | robot disabled | IDLE | "robot disabled" |
 | T2 | STALLED | goal is not IDLE | STALLED | "stalled; waiting for IDLE goal to reset" |
-| T3 | any | current > 40 A | STALLED | "current over stall limit" |
+| T3 | any | current > 40 A for 5 loops in a row (0.1 s) | STALLED | "current over stall limit for 0.1 s" |
 | T4 | any | goal IDLE | IDLE | "goal IDLE" |
 | T5 | any | goal EJECT | EJECTING | "goal EJECT" |
 | T6 | any | goal INTAKE, no piece | INTAKING | "goal INTAKE, no piece" |
@@ -74,22 +75,22 @@ None. `isHolding()` is available to a future superstructure.
 | Driver faceDown | while held | EJECT (IDLE on release) |
 
 ### 6. Limits
-- Current: STALLED above 40 A.
+- Current: STALLED when above 40 A for 5 loops in a row (0.1 s). The debounce ignores the normal start-up spike; tested by the `stallDebounce_*` tests.
 - Voltage: clamped to ±12 V in IO.
 
 ### 7. Failure modes and safe states
 
 | Failure | How detected | Safe state / response |
 |---------|--------------|-----------------------|
-| Jam / stall | `currentAmps` > 40 | STALLED, 0 V, operator releases button to reset |
+| Jam / stall | `currentAmps` > 40 for 0.1 s (`StallDetected`) | STALLED, 0 V, operator releases button to reset |
 | Robot disabled | `RobotState.isEnabled()` false | IDLE, 0 V |
 | Motor disconnected | `motorConnected` false (logged) | Not handled in this example; a real spec must define it |
 
 ### 8. Telemetry
-`ExampleRoller/Goal`, `/State`, `/TransitionReason`, `/OutputVolts`, plus all IO inputs.
+`ExampleRoller/Goal`, `/State`, `/TransitionReason`, `/StallDetected`, `/OutputVolts`, plus all IO inputs.
 
 ### 9. Acceptance evidence
-- [x] Transition tests T1–T7 and the safe-default test pass in CI
+- [x] Transition tests T1–T7, the safe-default test, and the stall-debounce tests pass in CI
 - [ ] Sim: hold faceRight, see INTAKING and +8 V in AdvantageScope
 
 ### 10. Bring-up checklist
@@ -101,7 +102,7 @@ Real motor IO, piece sensor, superstructure, closed-loop control.
 ## Requirements *(mandatory)*
 
 - **FR-001**: The roller MUST output 0 V whenever the robot is disabled.
-- **FR-002**: The roller MUST enter STALLED and output 0 V when current exceeds 40 A.
+- **FR-002**: The roller MUST enter STALLED and output 0 V when current stays above 40 A for 0.1 s, and MUST NOT stall on a shorter start-up spike.
 - **FR-003**: Commands MUST only change the roller's goal.
 - **FR-004**: Goal, state, and transition reason MUST be logged every loop.
 

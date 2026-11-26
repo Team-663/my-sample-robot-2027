@@ -5,3 +5,9 @@
 /.github/               @Team-663/mentors
 /.specify/              @Team-663/mentors
 /docs/architecture.md   @Team-663/mentors
+/docs/framework/        @Team-663/mentors
+
+# The reference example: Copilot copies it into every new mechanism.
+/specs/000-example-roller/                              @Team-663/mentors
+/src/main/java/first/robot/subsystems/exampleroller/    @Team-663/mentors
+/src/test/java/first/robot/subsystems/exampleroller/    @Team-663/mentors
