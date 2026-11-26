@@ -31,7 +31,11 @@ public class Robot extends LoggedRobot {
         Logger.addDataReceiver(new WPILOGWriter());
         Logger.addDataReceiver(new NT4Publisher());
       }
-      case SIM -> Logger.addDataReceiver(new NT4Publisher());
+      case SIM -> {
+        // Live view in AdvantageScope, plus a log file so you can practice replay with it.
+        Logger.addDataReceiver(new WPILOGWriter());
+        Logger.addDataReceiver(new NT4Publisher());
+      }
       case REPLAY -> {
         setUseTiming(false); // Run as fast as possible.
         String logPath = LogFileUtil.findReplayLog();
